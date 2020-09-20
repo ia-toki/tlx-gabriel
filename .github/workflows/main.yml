@@ -1,0 +1,21 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 50
+
+      - name: Build
+        run: ./deploy.sh
